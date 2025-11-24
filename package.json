@@ -1,0 +1,25 @@
+{
+  "name": "dev-dictionary-quiz",
+  "version": "1.0.0",
+  "description": "개발을 공부하면서 가장 어려웠던 부분 중 하나는 ** 개념의 휘발성 ** 이었습니다. 용어나 원리를 이해했다고 생각해도, 시간이 조금만 지나면 기억이 흐릿해져 다시 용어를 찾게 되는 일이 반복됐습니다. 그래서 \"개발자 용어를 더 효과적으로 기억하고 복습할 수 있는 방법이 없을까?\"라는 고민을 하게 되었습니다. 이를 직접 해결해보고자 ** 개발자 용어 학습용 퀴즈 애플리케이션 **을 만들게 되었습니다.",
+  "main": "index.js",
+  "scripts": {
+  "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+}
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeongBeanHyun/dev-dictionary-quiz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/JeongBeanHyun/dev-dictionary-quiz/issues"
+  },
+  "homepage": "https://github.com/JeongBeanHyun/dev-dictionary-quiz#readme",
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
