@@ -33,25 +33,27 @@ export function loadConfig(configPath = CONFIG_PATH) {
   return readJSON(configPath);
 }
 
-export function updateHistoryWithResult(sessionResult, history, config) {
-  const updated = { ...history };
-
-  const { score, questions } = sessionResult;
-  const wrongAnswerWeightBonus = config.wrongAnswerWeightBonus ?? 1;
-  const maxWeight = config.maxWeight ?? 10;
+function updatePlayAndScore(updated, sessionResult) {
+  const { score } = sessionResult;
 
   updated.playCount = (updated.playCount ?? 0) + 1;
-
   updated.lastScore = score;
   updated.bestScore = Math.max(updated.bestScore ?? 0, score);
+}
 
-  const wrongQuestions = questions.filter((q) => !q.isCorrect);
+function updateWrongHistory(updated, wrongQuestions) {
   const wrongIds = wrongQuestions.map((q) => q.id);
 
   if (!Array.isArray(updated.wrongHistory)) {
     updated.wrongHistory = [];
   }
+
   updated.wrongHistory = [...updated.wrongHistory, ...wrongIds];
+}
+
+function updateQuestionWeights(updated, wrongQuestions, config) {
+  const wrongAnswerWeightBonus = config.wrongAnswerWeightBonus ?? 1;
+  const maxWeight = config.maxWeight ?? 10;
 
   if (!updated.questionWeights) {
     updated.questionWeights = {};
@@ -62,13 +64,16 @@ export function updateHistoryWithResult(sessionResult, history, config) {
     const next = Math.min(current + wrongAnswerWeightBonus, maxWeight);
     updated.questionWeights[q.id] = next;
   });
+}
 
+function updateCategoryStats(updated, questions) {
   if (!updated.categoryStats) {
     updated.categoryStats = {};
   }
 
   questions.forEach((q) => {
     const cat = q.category ?? "unknown";
+
     if (!updated.categoryStats[cat]) {
       updated.categoryStats[cat] = { correct: 0, wrong: 0, total: 0 };
     }
@@ -79,6 +84,18 @@ export function updateHistoryWithResult(sessionResult, history, config) {
     if (q.isCorrect) stat.correct += 1;
     else stat.wrong += 1;
   });
+}
+
+export function updateHistoryWithResult(sessionResult, history, config) {
+  const updated = { ...history };
+  const { questions } = sessionResult;
+
+  const wrongQuestions = questions.filter((q) => !q.isCorrect);
+
+  updatePlayAndScore(updated, sessionResult);
+  updateWrongHistory(updated, wrongQuestions);
+  updateQuestionWeights(updated, wrongQuestions, config);
+  updateCategoryStats(updated, questions);
 
   return updated;
 }
