@@ -81,8 +81,9 @@
    - `FileUtils` : JSON 파일 읽기/쓰기
    - `RandomUtils` : 랜덤 관련 기능
    - `ShuffleUtils` : 문제 순서 섞기, 보기 섞기
-5. `index.js` : 전체 프로그램 시작점
-6. `tests/` : 단위 테스트
+5. `index.js` : 프로그램을 실행시키는 진입점
+6. `runApp` : 프로그램 전체 흐름을 관리하는 컨트롤러
+7. `tests/` : 단위 테스트
 
 ## 실행 방법
 
