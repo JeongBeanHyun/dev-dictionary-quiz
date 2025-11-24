@@ -1,0 +1,11 @@
+{
+  "questionCount": 10,
+  "defaultCategoryWeight": {
+    "basic": 1,
+    "javascript": 1,
+    "web": 1,
+    "cs": 1
+  },
+  "wrongAnswerWeightBonus": 3,
+  "maxWeight": 10
+}
