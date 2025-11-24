@@ -19,7 +19,6 @@ export default class QuestionSelector {
   }
 
   pickWeightedFrom(pool) {
-    // history 없음 → 그냥 랜덤
     if (!this.history || !this.history.questionWeights) {
       return this.pickRandomFrom(pool);
     }
